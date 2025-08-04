@@ -106,18 +106,18 @@ const LoginPage: React.FC = () => {
   };
 
   const renderPhoneStep = () => (
-    <div className="animate-fade-in">
+    <div className="animate-slide-up">
       <div className="text-center mb-8">
-        <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-bounce">
           <Phone className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to WashLink</h1>
-        <p className="text-gray-600">Enter your phone number to get started</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">Welcome to WashLink</h1>
+        <p className="text-gray-600 text-lg">Enter your phone number to get started</p>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-3">
             Phone Number
           </label>
           <input
@@ -126,29 +126,29 @@ const LoginPage: React.FC = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+251 9 XX XX XX XX"
-            className="input"
+            className="input focus-ring"
             autoComplete="tel"
           />
         </div>
 
         {error && (
-          <div className="p-3 rounded-lg bg-red-50 border border-red-200">
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="p-4 rounded-xl bg-red-50 border border-red-200 animate-slide-in">
+            <p className="text-sm text-red-600 font-medium">{error}</p>
           </div>
         )}
 
         <button
           onClick={handleSendOTP}
           disabled={isLoading}
-          className="btn btn-primary btn-full btn-lg"
+          className="btn btn-primary btn-full btn-lg haptic-medium"
         >
           {isLoading ? (
             <div className="flex items-center gap-2">
-              <div className="animate-pulse">Sending...</div>
+              <div className="animate-pulse font-semibold">Sending...</div>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              Send OTP <ArrowRight className="w-5 h-5" />
+              <span className="font-semibold">Send OTP</span> <ArrowRight className="w-5 h-5" />
             </div>
           )}
         </button>
@@ -157,20 +157,20 @@ const LoginPage: React.FC = () => {
   );
 
   const renderOTPStep = () => (
-    <div className="animate-fade-in">
+    <div className="animate-slide-up">
       <div className="text-center mb-8">
-        <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-bounce">
           <MessageCircle className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Verify Your Phone</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">Verify Your Phone</h1>
+        <p className="text-gray-600 text-lg">
           We sent a 6-digit code to {phone}
         </p>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="otp" className="block text-sm font-semibold text-gray-700 mb-3">
             Verification Code
           </label>
           <input
@@ -182,52 +182,52 @@ const LoginPage: React.FC = () => {
             value={otp}
             onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
             placeholder="000000"
-            className="input text-center text-2xl tracking-widest"
+            className="input text-center text-2xl tracking-widest font-bold focus-ring"
             autoComplete="one-time-code"
           />
         </div>
 
         {error && (
-          <div className="p-3 rounded-lg bg-red-50 border border-red-200">
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="p-4 rounded-xl bg-red-50 border border-red-200 animate-slide-in">
+            <p className="text-sm text-red-600 font-medium">{error}</p>
           </div>
         )}
 
         <button
           onClick={handleVerifyOTP}
           disabled={isLoading || otp.length !== 6}
-          className="btn btn-primary btn-full btn-lg"
+          className="btn btn-primary btn-full btn-lg haptic-medium"
         >
           {isLoading ? (
-            <div className="animate-pulse">Verifying...</div>
+            <div className="animate-pulse font-semibold">Verifying...</div>
           ) : (
-            'Verify Code'
+            <span className="font-semibold">Verify Code</span>
           )}
         </button>
 
         <button
           onClick={() => setStep('phone')}
-          className="btn btn-ghost btn-full"
+          className="btn btn-ghost btn-full haptic-light"
         >
-          Change Phone Number
+          <span className="font-medium">Change Phone Number</span>
         </button>
       </div>
     </div>
   );
 
   const renderNameStep = () => (
-    <div className="animate-fade-in">
+    <div className="animate-slide-up">
       <div className="text-center mb-8">
-        <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl animate-bounce">
           <User className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Complete Registration</h1>
-        <p className="text-gray-600">Please provide your full name to complete setup</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-3">Complete Registration</h1>
+        <p className="text-gray-600 text-lg">Please provide your full name to complete setup</p>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-3">
             Full Name
           </label>
           <input
@@ -236,26 +236,26 @@ const LoginPage: React.FC = () => {
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Enter your full name"
-            className="input"
+            className="input focus-ring"
             autoComplete="name"
           />
         </div>
 
         {error && (
-          <div className="p-3 rounded-lg bg-red-50 border border-red-200">
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="p-4 rounded-xl bg-red-50 border border-red-200 animate-slide-in">
+            <p className="text-sm text-red-600 font-medium">{error}</p>
           </div>
         )}
 
         <button
           onClick={handleCompleteRegistration}
           disabled={isLoading}
-          className="btn btn-primary btn-full btn-lg"
+          className="btn btn-primary btn-full btn-lg haptic-medium"
         >
           {isLoading ? (
-            <div className="animate-pulse">Creating Account...</div>
+            <div className="animate-pulse font-semibold">Creating Account...</div>
           ) : (
-            'Complete Registration'
+            <span className="font-semibold">Complete Registration</span>
           )}
         </button>
       </div>
@@ -263,9 +263,10 @@ const LoginPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-primary flex items-center justify-center p-4 safe-top safe-bottom">
+    <div className="min-h-screen bg-primary flex items-center justify-center p-4 safe-top safe-bottom relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 to-blue-600/20"></div>
       <div className="w-full max-w-md">
-        <div className="card">
+        <div className="card-gradient backdrop-blur-xl">
           {step === 'phone' && renderPhoneStep()}
           {step === 'otp' && renderOTPStep()}
           {step === 'name' && renderNameStep()}

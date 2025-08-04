@@ -114,33 +114,34 @@ const CreateOrderPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 animate-fade-in">
       {/* Header */}
-      <div className="bg-primary safe-top">
+      <div className="bg-primary safe-top relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 to-blue-600/20"></div>
         <div className="container py-4">
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate(-1)}
-              className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"
+              className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30 haptic-light"
             >
               <ArrowLeft className="w-5 h-5 text-white" />
             </button>
-            <h1 className="text-white text-xl font-semibold">Create Order</h1>
+            <h1 className="text-white text-xl font-bold">Create Order</h1>
           </div>
         </div>
       </div>
 
       <div className="container pt-6 pb-20">
         {/* Address Section */}
-        <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 mb-6 animate-slide-up">
+          <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
             <MapPin className="w-5 h-5" />
             Addresses
           </h2>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Pickup Address *
               </label>
               <input
@@ -148,7 +149,7 @@ const CreateOrderPage: React.FC = () => {
                 value={pickupAddress}
                 onChange={(e) => setPickupAddress(e.target.value)}
                 placeholder="Enter pickup address"
-                className="input"
+                className="input focus-ring"
               />
             </div>
 
@@ -158,16 +159,16 @@ const CreateOrderPage: React.FC = () => {
                 id="needsDelivery"
                 checked={needsDelivery}
                 onChange={(e) => setNeedsDelivery(e.target.checked)}
-                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary haptic-light"
               />
-              <label htmlFor="needsDelivery" className="text-sm text-gray-700">
+              <label htmlFor="needsDelivery" className="text-sm text-gray-700 font-medium">
                 I need delivery to a different address
               </label>
             </div>
 
             {needsDelivery && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Delivery Address *
                 </label>
                 <input
@@ -175,7 +176,7 @@ const CreateOrderPage: React.FC = () => {
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
                   placeholder="Enter delivery address"
-                  className="input"
+                  className="input focus-ring"
                 />
               </div>
             )}
@@ -183,8 +184,8 @@ const CreateOrderPage: React.FC = () => {
         </div>
 
         {/* Services Section */}
-        <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 mb-6 animate-slide-up">
+          <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
             <Package className="w-5 h-5" />
             Select Services
           </h2>
@@ -192,8 +193,8 @@ const CreateOrderPage: React.FC = () => {
           {loading ? (
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="h-16 bg-gray-200 rounded-lg"></div>
+                <div key={i} className="skeleton">
+                  <div className="h-20 bg-gray-200 rounded-xl"></div>
                 </div>
               ))}
             </div>
@@ -202,16 +203,16 @@ const CreateOrderPage: React.FC = () => {
               {items.map((item) => {
                 const quantity = getItemQuantity(item.id);
                 return (
-                  <div key={item.id} className="border border-gray-200 rounded-lg p-3">
+                  <div key={item.id} className="border border-gray-200 rounded-xl p-4 hover:border-primary transition-colors haptic-light">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900">{item.name}</h3>
+                        <h3 className="font-bold text-gray-900">{item.name}</h3>
                         <p className="text-sm text-gray-600">{item.description}</p>
-                        <p className="text-sm font-semibold text-primary mt-1">
+                        <p className="text-sm font-bold text-primary mt-1">
                           {item.price} ETB • {item.estimated_time}
                         </p>
                       </div>
-                      <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
                         item.category === 'Express' ? 'bg-red-100 text-red-700' :
                         item.category === 'Premium' ? 'bg-blue-100 text-blue-700' :
                         'bg-green-100 text-green-700'
@@ -225,20 +226,20 @@ const CreateOrderPage: React.FC = () => {
                         <button
                           onClick={() => removeItem(item.id)}
                           disabled={quantity === 0}
-                          className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center disabled:opacity-50"
+                          className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center disabled:opacity-50 haptic-light hover:bg-gray-200 transition-colors"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="font-medium w-8 text-center">{quantity}</span>
+                        <span className="font-bold w-8 text-center text-lg">{quantity}</span>
                         <button
                           onClick={() => addItem(item)}
-                          className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center"
+                          className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center haptic-medium hover:shadow-lg transition-all"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
                       </div>
                       {quantity > 0 && (
-                        <span className="font-semibold text-primary">
+                        <span className="font-bold text-primary text-lg">
                           {(item.price * quantity).toFixed(2)} ETB
                         </span>
                       )}
@@ -252,23 +253,23 @@ const CreateOrderPage: React.FC = () => {
 
         {/* Order Summary */}
         {selectedItems.length > 0 && (
-          <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-            <h2 className="font-semibold text-gray-900 mb-4">Order Summary</h2>
+          <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 mb-6 animate-slide-up">
+            <h2 className="font-bold text-gray-900 mb-4">Order Summary</h2>
             
             <div className="space-y-2 mb-4">
               {selectedItems.map((item) => {
                 const serviceItem = items.find(i => i.id === item.product_id);
                 return (
                   <div key={item.product_id} className="flex justify-between text-sm">
-                    <span>{serviceItem?.name} x {item.quantity}</span>
-                    <span>{(item.price * item.quantity).toFixed(2)} ETB</span>
+                    <span className="font-medium">{serviceItem?.name} x {item.quantity}</span>
+                    <span className="font-semibold">{(item.price * item.quantity).toFixed(2)} ETB</span>
                   </div>
                 );
               })}
             </div>
 
-            <div className="border-t pt-3">
-              <div className="flex justify-between font-semibold text-lg">
+            <div className="border-t border-gray-100 pt-4">
+              <div className="flex justify-between font-bold text-xl">
                 <span>Total</span>
                 <span className="text-primary">{getTotalAmount().toFixed(2)} ETB</span>
               </div>
@@ -280,12 +281,12 @@ const CreateOrderPage: React.FC = () => {
         <button
           onClick={handleCreateOrder}
           disabled={creating || selectedItems.length === 0 || !pickupAddress.trim()}
-          className="btn btn-primary btn-full btn-lg"
+          className="btn btn-primary btn-full btn-lg haptic-heavy animate-slide-up"
         >
           {creating ? (
-            <div className="animate-pulse">Creating Order...</div>
+            <div className="animate-pulse font-bold">Creating Order...</div>
           ) : (
-            `Create Order • ${getTotalAmount().toFixed(2)} ETB`
+            <span className="font-bold">Create Order • ${getTotalAmount().toFixed(2)} ETB</span>
           )}
         </button>
       </div>

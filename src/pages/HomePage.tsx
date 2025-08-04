@@ -43,9 +43,10 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 animate-fade-in">
       {/* Header */}
-      <div className="bg-primary safe-top">
+      <div className="bg-primary safe-top relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 to-blue-600/20"></div>
         <div className="container py-6">
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -56,7 +57,7 @@ const HomePage: React.FC = () => {
                 {user?.full_name || 'Welcome'}
               </h1>
             </div>
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
               <span className="text-white font-semibold text-lg">
                 {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
               </span>
@@ -77,7 +78,7 @@ const HomePage: React.FC = () => {
               placeholder="Search for laundry services..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white rounded-xl border-0 shadow-sm"
+              className="w-full pl-12 pr-4 py-4 bg-white/95 backdrop-blur-sm rounded-2xl border-0 shadow-lg focus:shadow-xl transition-all"
             />
           </div>
         </div>
@@ -85,26 +86,26 @@ const HomePage: React.FC = () => {
 
       {/* Quick Stats */}
       <div className="container -mt-8 mb-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-xl p-4 shadow-sm">
+        <div className="grid grid-cols-2 gap-4 animate-slide-up">
+          <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100 haptic-light">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
                 <Clock className="w-5 h-5 text-blue-600" />
               </div>
               <div>
                 <p className="text-xs text-gray-500">Average Time</p>
-                <p className="font-semibold text-gray-900">24 Hours</p>
+                <p className="font-bold text-gray-900">24 Hours</p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-4 shadow-sm">
+          <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100 haptic-light">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
                 <Star className="w-5 h-5 text-green-600" />
               </div>
               <div>
                 <p className="text-xs text-gray-500">Rating</p>
-                <p className="font-semibold text-gray-900">4.8/5</p>
+                <p className="font-bold text-gray-900">4.8/5</p>
               </div>
             </div>
           </div>
@@ -113,15 +114,15 @@ const HomePage: React.FC = () => {
 
       {/* Categories */}
       <div className="container mb-6">
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-3 overflow-x-auto pb-2 hide-scrollbar">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category === 'All' ? '' : category)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 px-6 py-3 rounded-full text-sm font-semibold transition-all haptic-light ${
                 (category === 'All' && !selectedCategory) || selectedCategory === category
-                  ? 'bg-primary text-white'
-                  : 'bg-white text-gray-700 border border-gray-200'
+                  ? 'bg-primary text-white shadow-lg scale-105'
+                  : 'bg-white text-gray-700 border border-gray-200 hover:border-gray-300 hover:shadow-md'
               }`}
             >
               {category}
@@ -133,16 +134,16 @@ const HomePage: React.FC = () => {
       {/* Services Grid */}
       <div className="container pb-20">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-900">Our Services</h2>
+          <h2 className="text-xl font-bold text-gray-900">Our Services</h2>
           <span className="text-sm text-gray-500">{filteredItems.length} services</span>
         </div>
 
         {loading ? (
           <div className="grid grid-cols-1 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white rounded-xl p-4 shadow-sm animate-pulse">
+              <div key={i} className="bg-white rounded-2xl p-4 shadow-lg skeleton">
                 <div className="flex gap-4">
-                  <div className="w-16 h-16 bg-gray-200 rounded-lg"></div>
+                  <div className="w-16 h-16 bg-gray-200 rounded-xl"></div>
                   <div className="flex-1">
                     <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
                     <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
@@ -153,24 +154,24 @@ const HomePage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 animate-fade-in">
             {filteredItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+              <div key={item.id} className="card-service">
                 <div className="flex gap-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center">
                     <span className="text-2xl">🧺</span>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">{item.name}</h3>
+                        <h3 className="font-bold text-gray-900 mb-1">{item.name}</h3>
                         <p className="text-sm text-gray-600 mb-2">{item.description}</p>
                         <div className="flex items-center gap-4">
-                          <span className="font-bold text-primary">{item.price} {item.currency}</span>
+                          <span className="font-bold text-primary text-lg">{item.price} {item.currency}</span>
                           <span className="text-xs text-gray-500">{item.estimated_time}</span>
                         </div>
                       </div>
-                      <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
                         item.category === 'Express' ? 'bg-red-100 text-red-700' :
                         item.category === 'Premium' ? 'bg-blue-100 text-blue-700' :
                         'bg-green-100 text-green-700'
@@ -180,7 +181,7 @@ const HomePage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <button className="w-full mt-4 bg-gradient-to-r from-green-500 to-blue-500 text-white py-2 rounded-lg font-medium flex items-center justify-center gap-2 hover:shadow-lg transition-shadow">
+                <button className="w-full mt-4 bg-gradient-to-r from-green-500 to-blue-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all haptic-medium">
                   <Plus className="w-4 h-4" />
                   Select Service
                 </button>
@@ -190,11 +191,11 @@ const HomePage: React.FC = () => {
         )}
 
         {!loading && filteredItems.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="text-center py-12 animate-fade-in">
+            <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
               <Search className="w-8 h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No services found</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">No services found</h3>
             <p className="text-gray-600">Try adjusting your search or filter criteria</p>
           </div>
         )}
